@@ -1,0 +1,19 @@
+<div *ngIf="pokemon">
+  <span>{{pokemon.name}}</span>
+  <div><img [src]="getImage(pokemon.id)"></div>
+</div>
+
+
+<br>
+<br>
+<br>
+<form id="formId" (ngSubmit)="onclick()" #refForm="ngForm">
+
+<input name="test" [(ngModel)]="searchTerm">
+
+<!--<input #term (keyup)="onclick(term.value)"/>-->
+
+<!--<button (click)="onclick()">Search</button>-->
+
+<button type="submit">Submit</button>
+</form>
