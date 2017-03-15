@@ -1,8 +1,7 @@
 <div *ngIf="pokemon">
   <span>{{pokemon.name}}</span>
-  <div><img [src]="getImage(pokemon.id)"></div>
+  <div><img (click)="getFicha()" [src]="getImage(pokemon.id)"></div>
 </div>
-
 
 <br>
 <br>

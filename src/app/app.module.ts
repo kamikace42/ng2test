@@ -6,11 +6,17 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app.router";
 import { MenuComponent } from './menu/menu.component';
+import { InfoCardComponent } from './info-card/info-card.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ResolveService } from "./resolve.service";
+import { GetApiService } from "./get-api.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    InfoCardComponent,
+    PageNotFoundComponent
 
   ],
   imports: [
@@ -19,7 +25,7 @@ import { MenuComponent } from './menu/menu.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ResolveService, GetApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
