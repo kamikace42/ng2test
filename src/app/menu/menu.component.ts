@@ -2,17 +2,43 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GetApiService } from '../get-api.service';
 
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import { Subject } from 'rxjs/Subject';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
   providers: [GetApiService]
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
 
   // search: string;
   pokemon: any;
   searchTerm = '';
+  inputPadre: any;
+
+  testForm = new FormGroup ({
+    name: new FormControl()
+  });
+
+  items: Observable<string[]>;
+  outputPadre () {
+    console.log(this);
+  }
+
+
+  private searchTermStream = new Subject<string>();
+
+  search(term: string) {
+    this.searchTermStream.next(term);
+    console.log(this.searchTermStream);
+  }
 
   constructor(
     private getApiService: GetApiService,
@@ -36,6 +62,13 @@ export class MenuComponent {
   getFicha(): void {
     this.router.navigate(['/pokemon', this.pokemon.id]);
     console.log(this.route);
+  }
+    ngOnInit() {
+      console.log(this);
+    this.items = this.searchTermStream
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap((term: string) => this.getApiService.getPoke(term));
   }
 
 }

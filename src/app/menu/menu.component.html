@@ -8,11 +8,33 @@
 <br>
 <form id="formId" (ngSubmit)="onclick()" #refForm="ngForm">
 
-<input name="test" [(ngModel)]="searchTerm">
+  <input name="test" [(ngModel)]="searchTerm">
 
-<!--<input #term (keyup)="onclick(term.value)"/>-->
 
-<!--<button (click)="onclick()">Search</button>-->
 
-<button type="submit">Submit</button>
+  <!--<input #term (keyup)="onclick(term.value)"/>-->
+
+  <!--<button (click)="onclick()">Search</button>-->
+
+  <button type="submit">Submit</button>
+</form>
+<span>test observable</span>
+  <input name="test" #item (keyup)="search(item.value)">
+<br>
+
+<input type="text" [(ngModel)]="inputPadre">{{inputPadre}}
+
+<app-test
+
+[inputHijo]="inputPadre"
+(outputHijo)="outputPadre($event)"
+></app-test>
+
+<br><br>
+<form [formGroup]="testForm" novalidate>
+  <div>
+    <label >Name:
+      <input formControlName="name">
+    </label>
+  </div>
 </form>
